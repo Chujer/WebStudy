@@ -9,153 +9,61 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          textDirection: TextDirection.ltr,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(color: Colors.red, width: 50,height: 50),
-            Container(color: Colors.blue, width: 50,height: 50),
-            Container(color: Colors.yellow, width: 50,height: 50),
+    return MaterialApp(
+      theme: ThemeData(primarySwatch: Colors.blue),
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title : Text('FunCoding'),
+        ),    /// 화면의 상단에 있는 앱 바
+        body: const Center(
+          child: TextField(
+            decoration:InputDecoration(labelText: "입력해보세요"),
+          ),
+        ),    /// 화면의 기본 내용, 일반적으로 위젯의 목록
+        floatingActionButton: FloatingActionButton(
+          elevation: 10.0,
+          child: Icon(Icons.add),
+          onPressed: (){
+          },
+        ),      /// 인터페이스 위에 떠있는 부가 버튼
+        drawer: Drawer(
+          child: ListView(
+            children: [
+              ListTile(title: Text('Item 1'),),
+              ListTile(title: Text('Item 2'),)
+            ],
+          ),
+        ),      /// Scaffold 위젯의 사이드 메뉴
+        persistentFooterButtons: [
+          Icon(Icons.settings),
+          SizedBox(width: 5,),
+          Icon(Icons.exit_to_app),
+          SizedBox(width: 10,),
+        ],      /// 화면 하단에 표시되는 버튼의 행
+        bottomNavigationBar: BottomNavigationBar(
+          currentIndex: 0,
+          fixedColor: Colors.green,
+          items: [
+            BottomNavigationBarItem(
+                label: "Home",
+                icon: Icon(Icons.home)
+            ),
+            BottomNavigationBarItem(
+                label: "Search",
+                icon: Icon(Icons.search)
+            ),
+            BottomNavigationBarItem(
+                label: "Profile",
+                icon: Icon(Icons.account_circle)
+            ),
           ],
-        ),
-        Row(
-          textDirection: TextDirection.ltr,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(color: Colors.red, width: 50,height: 50),
-            Container(color: Colors.blue, width: 50,height: 50),
-            Container(color: Colors.yellow, width: 50,height: 50),
-          ],
-        ),
-        Row(
-          textDirection: TextDirection.ltr,
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Container(color: Colors.red, width: 50,height: 50),
-            Container(color: Colors.blue, width: 50,height: 50),
-            Container(color: Colors.yellow, width: 50,height: 50),
-          ],
-        ),
-        Row(
-          textDirection: TextDirection.ltr,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Container(color: Colors.red, width: 50,height: 50),
-            Container(color: Colors.blue, width: 50,height: 50),
-            Container(color: Colors.yellow, width: 50,height: 50),
-          ],
-        ),
-        Row(
-          textDirection: TextDirection.ltr,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(color: Colors.red, width: 50,height: 50),
-            Container(color: Colors.blue, width: 50,height: 50),
-            Container(color: Colors.yellow, width: 50,height: 50),
-          ],
-        ),
-        Row(
-          textDirection: TextDirection.ltr,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            Container(color: Colors.red, width: 50,height: 50),
-            Container(color: Colors.blue, width: 50,height: 50),
-            Container(color: Colors.yellow, width: 50,height: 50),
-          ],
-        ),
-        Row(
-          textDirection: TextDirection.ltr,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(color: Colors.red, width: 50,height: 50),
-            Container(color: Colors.blue, width: 50,height: 50),
-            Container(color: Colors.yellow, width: 50,height: 50),
-          ],
-        ),
-        Row(
-          textDirection: TextDirection.ltr,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Container(color: Colors.red, width: 50,height: 50),
-            Container(color: Colors.blue, width: 50,height: 50),
-            Container(color: Colors.yellow, width: 50,height: 50),
-          ],
-        ),
-        Row(
-          textDirection: TextDirection.ltr,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(color: Colors.red, width: 50,height: 50),
-            Container(color: Colors.blue, width: 50,height: 50),
-            Container(color: Colors.yellow, width: 50,height: 50),
-          ],
-        ),
-        Row(
-          textDirection: TextDirection.ltr,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(color: Colors.red, width: 50,height: 50),
-            Container(color: Colors.blue, width: 50,height: 50),
-            Container(color: Colors.yellow, width: 50,height: 50),
-          ],
-        ),
+          onTap: (int indexOfItem){},
+        ),      /// 화면 하단에 표시되는 네비게이션 바
+        backgroundColor: Colors.amberAccent,      /// 스캔폴드의 배경색
+        resizeToAvoidBottomInset: false,      /// 스크린 키보드를 피하기 위해 body의 크기를 자동으로 조절할지 여부를 설정(디폴트 true)
+      ),
 
-      ],
     );
   }
 }
-
-
-
-//TODO: 2025.11.11 : Row
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Row(
-//       textDirection: TextDirection.ltr,
-//       children: [
-//         Container(
-//           color:Colors.deepOrange,
-//           width: 50,
-//           height: 50,
-//           margin: const EdgeInsets.all(10),
-//         ),
-//         Container(
-//           color:Colors.blueAccent,
-//           width: 50,
-//           height: 50,
-//           margin: const EdgeInsets.all(10),
-//         ),
-//       ],
-//     );
-//   }
-// }
-
-
-//TODO : 2025.11.11 Container와 Border
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       margin: EdgeInsets.all(10),
-//       decoration: BoxDecoration(
-//         borderRadius: BorderRadius.all(Radius.circular(10)),
-//         color: Colors.blueAccent,
-//         border: Border.all(
-//           color:Colors.black,
-//           width: 5,
-//         )
-//       ),
-//       child: Center(
-//         child : Text("Hello world", textDirection: TextDirection.ltr,)
-//         //child: Icon(Icons.star, textDirection: TextDirection.ltr,)
-//       ),
-//     );
-//   }
-// }
