@@ -9,80 +9,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Weather App", style: TextStyle(color: Colors.white)),
-          centerTitle: true,
-          backgroundColor: Colors.blueAccent,
+    return Column(
+      children: [
+        Container(
+          width: 400,
+          color: Colors.amber,
+          child: Text("잔재미코딩", textDirection: TextDirection.ltr, style: TextStyle(fontSize: 24),overflow: TextOverflow.fade,),
         ),
-        body: Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft, end: Alignment.bottomRight,
-              colors: [Colors.blue, Colors.white]
-            )
-          ),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.wb_sunny, size: 100, color: Colors.yellow),
-                SizedBox(
-                  height: 20,
-                ),
-                Text('27℃', style: TextStyle(
-                  fontSize: 50,
-                  fontWeight: FontWeight.bold
-                ),),
-                SizedBox(
-                  height: 30,
-                ),
-                Text('Sunny', style: TextStyle(
-                  fontSize: 24,
-                ),),
-                SizedBox(
-                  height: 18,
-                ),
-                Text('New York City, USA', style: TextStyle(
-                  fontSize: 20
-                ),),
-                SizedBox(
-                  height: 60,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Column(
-                      children: [
-                        Text("Humidity"),
-                        SizedBox(height: 10,),
-                        Text("50%", style: TextStyle(fontSize: 20),)
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Text("Wind"),
-                        SizedBox(height: 10,),
-                        Text("50%", style: TextStyle(fontSize: 20),)
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        Text("Pressure"),
-                        SizedBox(height: 10,),
-                        Text("50%", style: TextStyle(fontSize: 20),)
-                      ],
-                    ),
-                  ],
-                )
-
-              ],
-            ),
+        Container(
+          child: Image(
+            image: AssetImage('assets/images/camera.png'),    ///프로젝트 내부에 넣은 이미지 에셋
           ),
         ),
-      ),
+        Container(
+          width: 400,
+          color: Colors.red,
+          child: Text("잔재미코딩", textDirection: TextDirection.ltr, style: TextStyle(fontFamily: 'Sunflower', fontSize: 24),   ///프로젝트 내부에 넣은 폰트 에셋
+          ),
+        ),
+        Container(
+          child: Image.network("https://www.fun-coding.org/img/newfunlogo72.png")     ///외부 인터넷에서 넣은 이미지
+          ),
+      ],
     );
   }
 }
