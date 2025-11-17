@@ -9,28 +9,83 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 400,
-          color: Colors.amber,
-          child: Text("잔재미코딩", textDirection: TextDirection.ltr, style: TextStyle(fontSize: 24),overflow: TextOverflow.fade,),
-        ),
-        Container(
-          child: Image(
-            image: AssetImage('assets/images/camera.png'),    ///프로젝트 내부에 넣은 이미지 에셋
-          ),
-        ),
-        Container(
-          width: 400,
-          color: Colors.red,
-          child: Text("잔재미코딩", textDirection: TextDirection.ltr, style: TextStyle(fontFamily: 'Sunflower', fontSize: 24),   ///프로젝트 내부에 넣은 폰트 에셋
-          ),
-        ),
-        Container(
-          child: Image.network("https://www.fun-coding.org/img/newfunlogo72.png")     ///외부 인터넷에서 넣은 이미지
-          ),
-      ],
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: MusicPlayerScreen(),
     );
   }
 }
+
+class MusicPlayerScreen extends StatelessWidget {
+  const MusicPlayerScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Funcoding Music Player'),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child:
+            Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+
+                Container(
+                  height: 200,
+                  width: 200,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                        image: AssetImage('assets/images/test.PNG'),
+                      fit: BoxFit.cover
+                    ),
+                  ),
+                ),
+                SizedBox(height: 20,),
+                Text('Song Title',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),),
+                SizedBox(height: 10,),
+                Text('Artist Name', style: TextStyle(
+                  fontSize: 18,
+                  fontStyle: FontStyle.italic
+                ),),
+              ],
+            ),
+          ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+            child: Column(
+              children: [
+                Slider(value: 0.5, onChanged: (value){})
+              ],
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(onPressed: (){},
+                  icon: Icon(Icons.skip_previous)
+              ),
+              IconButton(onPressed: (){},
+                  icon: Icon(Icons.play_arrow)
+              ),
+              IconButton(onPressed: (){},
+                  icon: Icon(Icons.skip_next)
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+}
+
