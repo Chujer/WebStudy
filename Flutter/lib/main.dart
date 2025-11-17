@@ -13,48 +13,81 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue)
+      ),
       home: Scaffold(
-        body: Center(
-          child: Column(
-            children: [
-              TextField(
-                decoration: InputDecoration(
-                  labelText: 'Email',
-                  labelStyle: TextStyle(
-                    color: Colors.amber
+        appBar: AppBar(
+          title: Text('Login Screen', style: TextStyle(color: Colors.white),),
+          backgroundColor: Theme
+              .of(context)
+              .colorScheme
+              .primary,
+          centerTitle: true,
+        ),
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                SizedBox(height: 40,),
+                TextField(
+                  decoration: InputDecoration(
+                      labelText: 'Email',
+                      border: OutlineInputBorder(),
+                      prefixIcon: Icon(Icons.email)
                   ),
-                  hintText: 'Enter your Email',
-                  hintStyle: TextStyle(
-                    color: Colors.brown
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(
-                      width: 2, color: Colors.red
-                    ),
-
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                    borderSide: BorderSide(
-                        width: 2, color: Colors.blue
-                    ),
-                  ),
-                  icon: Icon(Icons.settings),
-                  prefixIcon: Icon(Icons.phone),
-                  suffixIcon: Icon(Icons.star),
                 ),
-                keyboardType: TextInputType.emailAddress, // 모바일 키보드 나오는 형태
-                textInputAction: TextInputAction.search,  //모바일에서 키보드 우측하단의 검색마크
-                obscureText: true,                        //화면에 표시안되게
-                controller: _emailController,
-              ),
-              ElevatedButton(
-                  onPressed: (){
-                    print(_emailController.text);
-                  },
-                  child: Text('Click')),
-            ],
+                SizedBox(
+                  height: 16,
+                ),
+                TextField(
+                  decoration: InputDecoration(
+                    labelText: 'Passward',
+                    border: OutlineInputBorder(),
+                    prefixIcon: Icon(Icons.lock),
+                  ),
+                ),
+                SizedBox(height: 24,),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                        vertical: 16
+                    ),
+                    child: Text('Login',
+                      style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16,),
+                TextButton(onPressed: () {}, child: Text('Foget Password?',
+                  style: TextStyle(
+                      fontSize: 16,
+                      fontWeight:
+                      FontWeight.bold),
+                )
+                ),
+                SizedBox(height: 16,),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Don\'t have an acount?'),
+                    TextButton(onPressed: (){},
+                        child: Text('Sign Up',
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,color: Theme.of(context).colorScheme.primary),
+                        )
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         ),
       ),
