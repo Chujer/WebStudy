@@ -1,89 +1,83 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MusicPlayer());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MusicPlayer extends StatelessWidget {
+  const MusicPlayer({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: MusicPlayerScreen(),
-    );
-  }
-}
-
-class MusicPlayerScreen extends StatelessWidget {
-  const MusicPlayerScreen({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Funcoding Music Player'),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child:
-            Center(
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Funcoding Music Player'),
+          titleTextStyle: TextStyle(color: Colors.white),
+          backgroundColor: Colors.purple,
+          centerTitle: true,
+        ),
+        body: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [Colors.purple, Colors.purpleAccent],
+            )
+          ),
+          child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-
-                Container(
-                  height: 200,
-                  width: 200,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    image: DecorationImage(
-                        image: AssetImage('assets/images/test.PNG'),
-                      fit: BoxFit.cover
-                    ),
-                  ),
+                CircleAvatar(
+                  backgroundImage: AssetImage('assets/images/test.PNG'),
+                  radius: 100,
                 ),
                 SizedBox(height: 20,),
                 Text('Song Title',
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
+                    color: Colors.white
                   ),),
                 SizedBox(height: 10,),
                 Text('Artist Name', style: TextStyle(
-                  fontSize: 18,
-                  fontStyle: FontStyle.italic
+                    fontSize: 18,
+                    color: Colors.white70
                 ),),
+                SizedBox(height: 30,),
+                Slider(value: 0.5, onChanged: (value) {},
+                  activeColor: Colors.white,
+                inactiveColor: Colors.grey,),
+                SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    IconButton(onPressed: () {},
+                        icon: Icon(Icons.fast_rewind),
+                        color: Colors.white,
+                        iconSize: 50,
+
+                    ),
+                    IconButton(onPressed: () {},
+                        icon: Icon(Icons.play_arrow),
+                      color: Colors.white,
+                      iconSize: 50,
+                    ),
+                    IconButton(onPressed: () {},
+                        icon: Icon(Icons.fast_forward),
+                      color: Colors.white,
+                      iconSize: 50,
+                    ),
+                  ],
+                )
               ],
             ),
           ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-            child: Column(
-              children: [
-                Slider(value: 0.5, onChanged: (value){})
-              ],
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              IconButton(onPressed: (){},
-                  icon: Icon(Icons.skip_previous)
-              ),
-              IconButton(onPressed: (){},
-                  icon: Icon(Icons.play_arrow)
-              ),
-              IconButton(onPressed: (){},
-                  icon: Icon(Icons.skip_next)
-              ),
-            ],
-          )
-        ],
+        ),
       ),
     );
   }
