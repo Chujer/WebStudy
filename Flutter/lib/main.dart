@@ -15,7 +15,8 @@ class _MyAppState extends State<MyApp> {
 
   bool _checkBoxValue = true;
   String _radioValue = 'Option 1';
-
+  double _sliderValue = 50.0;
+  bool _switchValue = false;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,7 +30,7 @@ class _MyAppState extends State<MyApp> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
-                child: Text('$_checkBoxValue'),
+                child: Text('$_checkBoxValue, $_radioValue, $_sliderValue, $_switchValue'),
               ),
               SizedBox(height: 16,),
               Text('Checkbox : '),
@@ -70,7 +71,27 @@ class _MyAppState extends State<MyApp> {
                   ),
                   Text('Option 2'),
                 ],
-              )
+              ),
+              SizedBox(height: 16.0,),
+              Text('Slider'),
+              Slider(
+                value: _sliderValue,
+                min: 0,
+                max: 100,
+                onChanged: (value){
+                setState(() {
+                  _sliderValue = value;
+                });
+                },
+              ),
+              SizedBox(height: 16.0,),
+              Switch(
+                  value: _switchValue,
+                  onChanged: (value) {
+                    setState(() {
+                      _switchValue = value;
+                    });
+                  })
             ],
           ),
         ),
