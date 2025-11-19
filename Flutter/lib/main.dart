@@ -13,88 +13,96 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-  bool _checkBoxValue = true;
-  String _radioValue = 'Option 1';
-  double _sliderValue = 50.0;
-  bool _switchValue = false;
+  final _formkey = GlobalKey<FormState>();
+  String _name ='';
+  String _email = '';
+  String _password = '';
+  String _erroMessage = '';
+
+  void _submitForm(){
+    if(_formkey.currentState!.validate()){
+      _formkey.currentState!.save();
+      print('$_name, $_email, $_password');
+    }else{
+      setState(() {
+        _erroMessage='pleas fill in all fields';
+      });
+      }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: Text('Form Controls Example'),
+          title: Text('Form Example'),
         ),
-        body: Container(
-          padding: EdgeInsets.all(16.0),
+      body: Container(
+        padding: EdgeInsets.all(16.0),
+        child: Form(
+          key: _formkey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Center(
-                child: Text('$_checkBoxValue, $_radioValue, $_sliderValue, $_switchValue'),
-              ),
-              SizedBox(height: 16,),
-              Text('Checkbox : '),
-              Checkbox(
-                value: _checkBoxValue,
-                onChanged: (value)
-                {
-                  setState(() {
-                    _checkBoxValue = value!;
-                  });
+              TextFormField(
+                decoration: InputDecoration(
+                    labelText: 'Name'
+                ),
+                validator: (value){
+                  if(value == null || value.isEmpty)
+                  {
+                    return 'Please enter your name';
+                  }
+                  return null;
+                },
+                onSaved: (value){
+                  _name = value!;
                 },
               ),
-              SizedBox(height: 16,),
-              Text('Radio Button'),
-              Row(
-                children: [
-                  Radio(
-                    value: 'Option 1',
-
-                    groupValue: _radioValue,
-                    onChanged: (value){
-                      setState(() {
-                        _radioValue = value.toString();
-                        print('Option1:$value');
-                      });
-                    },
-                  ),
-                  Text('Option 1'),
-                  Radio(
-                    value: 'Option 2',
-                    groupValue: _radioValue,
-                    onChanged: (value) {
-                        setState(() {
-                          _radioValue = value.toString();
-                          print('Option2:$value');
-                        });
-                      }
-                  ),
-                  Text('Option 2'),
-                ],
-              ),
-              SizedBox(height: 16.0,),
-              Text('Slider'),
-              Slider(
-                value: _sliderValue,
-                min: 0,
-                max: 100,
-                onChanged: (value){
-                setState(() {
-                  _sliderValue = value;
-                });
+              TextFormField(
+                decoration: InputDecoration(
+                    labelText: 'Email'
+                ),
+                validator: (value){
+                  if(value == null || value.isEmpty)
+                  {
+                    return 'Please enter your Email';
+                  }
+                  return null;
+                },
+                onSaved: (value){
+                  _email = value!;
                 },
               ),
-              SizedBox(height: 16.0,),
-              Switch(
-                  value: _switchValue,
-                  onChanged: (value) {
-                    setState(() {
-                      _switchValue = value;
-                    });
-                  })
+              TextFormField(
+                decoration: InputDecoration(
+                  errorStyle: TextStyle(
+                    color: Colors.blue,
+                    fontSize: 10
+                  ),
+                  labelText: 'Password'
+                ),
+                validator: (value){
+                  if(value == null || value.isEmpty)
+                  {
+                    return 'Please enter your Password';
+                  }
+                  return null;
+                },
+                onSaved: (value){
+                  _password = value!;
+                },
+              ),
+              ElevatedButton(
+                  onPressed: _submitForm,
+                  child: Text('Submit')
+              ),
+              Text(_erroMessage, style: TextStyle(color: Colors.red),)
             ],
           ),
         ),
+      ),
       ),
     );
   }
