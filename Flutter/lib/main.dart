@@ -29,7 +29,7 @@ class MyHomepage extends StatefulWidget {
 
 class _MyHomepageState extends State<MyHomepage> {
   int _currentPage = 0;
-  final PageController _controller = PageController();
+  final PageController _controller = PageController(viewportFraction: 0.9);
 
   @override
   void initState() {
@@ -57,55 +57,75 @@ class _MyHomepageState extends State<MyHomepage> {
           style: TextStyle(color: Colors.white
           ),),
         centerTitle: true,
-        backgroundColor: Theme
-            .of(context)
-            .colorScheme
-            .primary,
-      ),
-      body: Stack(
-        children: [
-          PageView(
-            controller: _controller,
-            children: [
-              _buildPage(
-                  imageUrl: 'https//source.upsplash.com/random',
-                  useName: 'Dave Lee',
-                  avatarUrl: 'https://https://randomuser.me/api/portraits/men/1.jpg'
-              ),
-              _buildPage(
-                  imageUrl: 'https//source.upsplash.com/random',
-                  useName: 'Jane Smith',
-                  avatarUrl: 'https://https://randomuser.me/api/portraits/women/1.jpg'
-              ),
-              _buildPage(
-                  imageUrl: 'https//source.upsplash.com/random',
-                  useName: 'Alex Johnson',
-                  avatarUrl: 'https://https://randomuser.me/api/portraits/men/2.jpg'
-              ),
-            ],
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Theme.of(context).colorScheme.primary,
+                Theme.of(context).colorScheme.primaryContainer,
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight
+            )
           ),
-          Positioned(
-              bottom: 20,
-              left: 0,
-              right: 0,
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children:
-                  List.generate(3, (index) {
-                    return Container(
-                      width: 8,
-                      height: 8,
-                      margin: EdgeInsets.symmetric(horizontal: 2),
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: _currentPage == index ?
-                        Theme.of(context).colorScheme.primary :
-                        Theme.of(context).colorScheme.primaryContainer
-                      ),
-                    );
-                  })
-              ))
-        ],
+        ),
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Theme.of(context).colorScheme.primary,
+              Theme.of(context).colorScheme.primaryContainer,
+            ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight
+          )
+        ),
+        child: Stack(
+          children: [
+            PageView(
+              controller: _controller,
+              children: [
+                _buildPage(
+                    imageUrl: 'assets/images/camera.png',
+                    useName: 'Dave Lee',
+                    avatarUrl: 'https://https://randomuser.me/api/portraits/men/1.jpg'
+                ),
+                _buildPage(
+                    imageUrl: 'assets/images/LodingScreen.png',
+                    useName: 'Jane Smith',
+                    avatarUrl: 'https://https://randomuser.me/api/portraits/women/1.jpg'
+                ),
+                _buildPage(
+                    imageUrl: 'assets/images/test.png',
+                    useName: 'Alex Johnson',
+                    avatarUrl: 'https://https://randomuser.me/api/portraits/men/2.jpg'
+                ),
+              ],
+            ),
+            Positioned(
+                bottom: 20,
+                left: 0,
+                right: 0,
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children:
+                    List.generate(3, (index) {
+                      return Container(
+                        width: 8,
+                        height: 8,
+                        margin: EdgeInsets.symmetric(horizontal: 2),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: _currentPage == index ?
+                          Theme.of(context).colorScheme.primary :
+                          Theme.of(context).colorScheme.primaryContainer
+                        ),
+                      );
+                    })
+                ))
+          ],
+        ),
       ),
     );
   }
@@ -118,10 +138,13 @@ class _MyHomepageState extends State<MyHomepage> {
     return Stack(
       children: [
         Positioned.fill(
-          child: Image.network(
+          child:ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: Image.asset(
             imageUrl,
             fit: BoxFit.cover,
           ),
+        )
         ),
         Positioned(
           bottom: 20,

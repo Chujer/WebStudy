@@ -64,6 +64,7 @@ flutter:
   assets:
     - assets/images/camera.png
     - assets/images/test.png
+    - assets/images/LodingScreen.png
 
   fonts:
     - family: Sunflower
