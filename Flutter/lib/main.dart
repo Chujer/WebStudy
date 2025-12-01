@@ -7,81 +7,106 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  @override   //모바일용
+  @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('PageView Example'),
-        ),
-        body: PageView(
-          controller: PageController(
-            initialPage: 2,
-            viewportFraction: 0.7,
-          ),
-          children: [
-            Container(margin: EdgeInsets.all(10),
-              color: Colors.red,),
-            Container(margin: EdgeInsets.all(10),
-              color: Colors.blue,),
-            Container(margin: EdgeInsets.all(10),
-              color: Colors.green,),
-          ],
-        ),
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueAccent)
       ),
+      home: MyHomepage(),
     );
   }
 }
 
+class MyHomepage extends StatefulWidget {
+  const MyHomepage({super.key});
 
-// class MyApp extends StatefulWidget {
-//   const MyApp({super.key});
-//
-//   @override
-//   State<MyApp> createState() => _MyAppState();
-// }
-//
-// class _MyAppState extends State<MyApp> {
-//   final _formKey = GlobalKey<FormState>();
-//   int _rating = 0;
-//   String _successMessage = '';
-//   double _sliderValue = 0.0;
-//   bool _agreeToTerms = false;
-//   String _name = '';
-//   String _email = '';
-//   String _description = '';
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: Scaffold(
-//         appBar: AppBar(
-//           title: Text('GridView Example'),
-//         ),
-//         body: Padding(
-//           padding: const EdgeInsets.all(16.0),
-//           child: GridView.builder(
-//             //scrollDirection: Axis.horizontal,
-//
-//             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-//               crossAxisCount: 2,   //한줄에 몇개의 객체를 배치할 것이냐
-//               crossAxisSpacing: 8.0,  // 좌우 간격
-//               mainAxisSpacing: 36.0 //위아래 간격
-//             ),
-//             itemCount: 10,
-//             itemBuilder: (context, index){
-//               return Container(
-//                 color: Colors.blueGrey,
-//                 child: Center(
-//                   child: Text('$index'),
-//                 ),
-//               );
-//             },
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
+  @override
+  State<MyHomepage> createState() => _MyHomepageState();
+}
+
+class _MyHomepageState extends State<MyHomepage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Inspirational Moments',
+        style: TextStyle(color: Colors.white
+        ),),
+        centerTitle: true,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+      ),
+      body: Stack(
+        children: [
+          PageView(
+            children: [
+              _buildPage(
+                imageUrl : 'https//source.upsplash.com/random/1',
+                useName : 'Dave Lee',
+                avatarUrl : 'https://https://randomuser.me/api/portraits/men/1.jpg'
+              ),
+              _buildPage(
+                imageUrl : 'https//source.upsplash.com/random/1',
+                useName : 'Jane Smith',
+                avatarUrl : 'https://https://randomuser.me/api/portraits/women/1.jpg'
+              ),
+              _buildPage(
+                imageUrl : 'https//source.upsplash.com/random/1',
+                useName : 'Alex Johnson',
+                avatarUrl : 'https://https://randomuser.me/api/portraits/men/2.jpg'
+              ),
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  Widget _buildPage({
+    required String imageUrl,
+    required String useName,
+    required String avatarUrl,
+}){
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: Image.network(
+            imageUrl,
+            fit: BoxFit.cover,
+          ),
+        ),
+        Positioned(
+          bottom: 20,
+          left: 20,
+          child: Row(
+            children: [
+              CircleAvatar(
+                backgroundImage: NetworkImage(avatarUrl),
+              ),
+              SizedBox( width: 10,),
+              Text(
+                useName,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  shadows: [
+                    Shadow(
+                      offset: Offset(1, 1),
+                      blurRadius: 2,
+                      color: Colors.black
+                    )
+                  ]
+                ),
+              )
+            ],
+          )  ,
+        )
+      ],
+    );
+  }
+}
 
 
