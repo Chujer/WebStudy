@@ -28,37 +28,83 @@ class MyHomepage extends StatefulWidget {
 }
 
 class _MyHomepageState extends State<MyHomepage> {
+  int _currentPage = 0;
+  final PageController _controller = PageController();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _controller.addListener((){
+      setState(() {
+        _currentPage = _controller.page!.round();
+      });
+    });
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _controller.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Inspirational Moments',
-        style: TextStyle(color: Colors.white
-        ),),
+          style: TextStyle(color: Colors.white
+          ),),
         centerTitle: true,
-        backgroundColor: Theme.of(context).colorScheme.primary,
+        backgroundColor: Theme
+            .of(context)
+            .colorScheme
+            .primary,
       ),
       body: Stack(
         children: [
           PageView(
+            controller: _controller,
             children: [
               _buildPage(
-                imageUrl : 'https//source.upsplash.com/random/1',
-                useName : 'Dave Lee',
-                avatarUrl : 'https://https://randomuser.me/api/portraits/men/1.jpg'
+                  imageUrl: 'https//source.upsplash.com/random',
+                  useName: 'Dave Lee',
+                  avatarUrl: 'https://https://randomuser.me/api/portraits/men/1.jpg'
               ),
               _buildPage(
-                imageUrl : 'https//source.upsplash.com/random/1',
-                useName : 'Jane Smith',
-                avatarUrl : 'https://https://randomuser.me/api/portraits/women/1.jpg'
+                  imageUrl: 'https//source.upsplash.com/random',
+                  useName: 'Jane Smith',
+                  avatarUrl: 'https://https://randomuser.me/api/portraits/women/1.jpg'
               ),
               _buildPage(
-                imageUrl : 'https//source.upsplash.com/random/1',
-                useName : 'Alex Johnson',
-                avatarUrl : 'https://https://randomuser.me/api/portraits/men/2.jpg'
+                  imageUrl: 'https//source.upsplash.com/random',
+                  useName: 'Alex Johnson',
+                  avatarUrl: 'https://https://randomuser.me/api/portraits/men/2.jpg'
               ),
             ],
-          )
+          ),
+          Positioned(
+              bottom: 20,
+              left: 0,
+              right: 0,
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children:
+                  List.generate(3, (index) {
+                    return Container(
+                      width: 8,
+                      height: 8,
+                      margin: EdgeInsets.symmetric(horizontal: 2),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: _currentPage == index ?
+                        Theme.of(context).colorScheme.primary :
+                        Theme.of(context).colorScheme.primaryContainer
+                      ),
+                    );
+                  })
+              ))
         ],
       ),
     );
