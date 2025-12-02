@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 void main() {
   runApp(MyApp());
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -11,51 +10,47 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: Text('AlertDialog Sample'),
-        ),
-        body: Center(
-          child: DialogExample(),
-        ),
+        appBar: AppBar(title: Text('Bottom Sheet Sample'),),
+        body: BottomSheetExample(),
       ),
     );
   }
 }
 
-class DialogExample extends StatelessWidget {
-  const DialogExample({super.key});
+class BottomSheetExample extends StatelessWidget {
+  const BottomSheetExample({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () => showDialog(
-          context: context,
-          barrierDismissible: true,
-          builder: (BuildContext context) => AlertDialog(
-            title: Text('AlertDialog Title'),
-            content: Text('AlertDialog description'),
-            backgroundColor: Colors.grey,
-            elevation: 24,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(8)
-            ),
-            contentPadding: EdgeInsets.all(50),
-            actionsPadding: EdgeInsets.all(2),
-            titlePadding: EdgeInsets.all(12),
-            buttonPadding: EdgeInsets.all(0),
-            actions: [
-              TextButton(
-                  onPressed: ()=>Navigator.of(context).pop(),
-                  child: Text('Cancel')
+    return Center(
+      child: ElevatedButton(
+        onPressed: (){
+          showBottomSheet(context: context, builder: (BuildContext context){
+            return Container(
+              color: Colors.amber,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  ListTile(
+                    leading: Icon(Icons.add),
+                    title: Text('추가'),
+                    onTap: (){
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.remove),
+                    title: Text('삭제'),
+                    onTap: (){
+                      Navigator.of(context).pop();
+                    },
+                  )
+                ],
               ),
-              TextButton(
-                  onPressed: ()=>Navigator.of(context).pop(),
-                  child: Text('OK')
-              ),
-            ],
-          )
-      ),
-      child: Text('Show Dialog'),
+            );
+          });
+        },
+        child: Text('showModalBottomSheet')),
     );
   }
 }
