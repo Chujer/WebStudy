@@ -49,7 +49,9 @@ class _MyHomePageState extends State<MyHomePage> with SingleTickerProviderStateM
     return Scaffold(
       appBar: AppBar(
         title: Text('Music Info App',
-          style: TextStyle(color: Theme
+          style: TextStyle(
+              fontWeight: FontWeight.bold,
+              color: Theme
               .of(context)
               .colorScheme
               .primary),
@@ -137,11 +139,64 @@ class TabContent extends StatelessWidget {
       itemCount: items.length,
       itemBuilder : (context, index){
         return Card(
+          elevation: 4,
+          margin: EdgeInsets.symmetric(horizontal: 10, vertical: 6),
           child: Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.secondary,
+              borderRadius: BorderRadius.circular(5),
+            ),
             child: ListTile(
-              leading: Icon(items[index].icon),
-              title: Text(items[index].name),
-              trailing: Icon(Icons.chevron_right),
+              contentPadding: EdgeInsets.symmetric(horizontal: 20, vertical: 6),
+              leading: Icon(items[index].icon, size: 25, color: Theme.of(context).colorScheme.inversePrimary,),
+              title: Text(items[index].name, style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                  color: Theme.of(context).colorScheme.inversePrimary
+              ),),
+              trailing: Icon(Icons.chevron_right, color: Theme.of(context).colorScheme.inversePrimary,),
+              onTap: (){
+                showModalBottomSheet(
+                    context: context,
+                    builder: (BuildContext context){
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).canvasColor,
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(10),
+                            topRight: Radius.circular(10)
+                          ),
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Row(
+                                children: [
+                                  Icon(items[index].icon,
+                                  size: 30,
+                                  color: Theme.of(context).colorScheme.primary,
+                                  ),
+                                  SizedBox(width: 10),
+                                  Text(items[index].name,
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold
+                                  ),)
+                                ],
+                              ),
+                              SizedBox(height: 10,),
+                              Text(items[index].description,
+                              style: TextStyle(fontSize: 16),)
+                            ],
+                          ),
+                        ),
+                      );
+                    }
+                );
+              },
             ),
           ),
         );
