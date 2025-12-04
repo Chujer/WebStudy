@@ -12,7 +12,7 @@ class Home extends StatelessWidget {
       body: Center(
         child: ElevatedButton(
             onPressed:  (){
-              Navigator.pushNamed(context, '/profile');
+              Navigator.pushNamed(context, '/profile');{
             },
             child: Text("Go to profile")),
       ),
