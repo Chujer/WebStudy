@@ -5,32 +5,36 @@ void main() {
   runApp(MyApp());
 }
 
+class DataModel extends ChangeNotifier{
+  int _data = 0;
+
+  int get data => _data;
+
+  void increment(){
+    _data++;
+    notifyListeners();
+  }
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Provider Test'),
-        ),
-        body: Column(
-          children: [
-            SizedBox(height: 10,),
-            Provider<int>(
-              create: (context){
-                int sum = 0;
-                for(int i = 0; i< 10; i++){
-                    sum+=i;
-                  }
-                return sum;
-              },
-                child: MyWidget1(),
-            ),
-            SizedBox(height: 10,),
+    return ChangeNotifierProvider(
+        create: (context) => DataModel(),
+      child: MaterialApp(
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text('Provider Test'),
+          ),body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            MyWidget1(),
             MyWidget2(),
+            MyWidget3(),
           ],
+        ),
         ),
       ),
     );
@@ -42,24 +46,29 @@ class MyWidget1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final data = Provider.of<int>(context);
+    final dataModel = Provider.of<DataModel>(context);
 
     print('MyWidget1');
-    return Column(
-      children: [
-        Text('MyWidget1 : ${data}'),
-        MyWidget3(),
-      ],
+    return Center(
+      child: Column(
+        children: [
+          Text('MyWidget1: ${dataModel._data}'),
+          ElevatedButton(
+              onPressed: (){
+                dataModel.increment();
+              },
+              child: Text('Increment')
+          )
+        ],
+      ),
     );
   }
 }
-
 class MyWidget2 extends StatelessWidget {
   const MyWidget2({super.key});
 
   @override
   Widget build(BuildContext context) {
-   // final data = Provider.of<int>(context); // 프로바이더는 자식위젯에만 적용되기 때문 MyWidget2는 MyWidget1의 자식이 아님
     print('MyWidget2');
     return Center(
       child: Text('MyWidget2'),
@@ -72,11 +81,20 @@ class MyWidget3 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final data = Provider.of<int>(context);
+    final dataModel = Provider.of<DataModel>(context);
     print('MyWidget3');
     return Center(
-      child:
-      Text('MyWidget3 : ${data}'),
+      child: Column(
+        children: [
+          Text('MyWidget3 : ${dataModel.data}'),
+          ElevatedButton(
+              onPressed: (){
+                dataModel.increment();
+              },
+              child: Text('Increment')
+          )
+        ],
+      ),
     );
   }
 }
